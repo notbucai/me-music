@@ -25,6 +25,7 @@
       v-on:pause="handlePauseEvent"
       v-on:durationchange="handleMusicLoad"
     ></audio>
+    <MusicList/>
   </div>
 </template>
 
@@ -33,6 +34,9 @@ import domUtil from "~/util/domUtil";
 import CommentList from "./components/commentList.vue";
 import MusicPlayer from "./components/musicPlayer.vue";
 import PlayAction from "./components/playAction.vue";
+import MusicList from "./components/musicList.vue";
+
+
 export default {
   name: "PlayList",
   mounted() {
@@ -43,7 +47,8 @@ export default {
   components: {
     CommentList,
     PlayAction,
-    MusicPlayer
+    MusicPlayer,
+    MusicList
   },
   data() {
     return {
@@ -162,6 +167,8 @@ export default {
 audio {
   position: absolute;
   bottom: 0;
+  display: none; // 完全不占用
+  /* visibility: hidden;  隐藏但占用文档*/
 }
 .app-header {
   text-align: center;
