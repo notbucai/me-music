@@ -2,7 +2,7 @@ import axios from 'axios';
 import Vue from 'vue';
 
 
-const ROOT = "http://api.ncgame.cc/music/";
+const ROOT = "http://music_api.ncgame.cc/";
 
 var HTTP = axios.create({
   timeout: 1000,
