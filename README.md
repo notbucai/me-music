@@ -2,6 +2,8 @@
 
 > 简介  <br/> 通过网易云专辑ID 获取音乐列表 然后播放 <br/> `(换个地方播放音乐的感觉)`
 
+> `地址` http://music.ncgame.cc/
+
 > 技术栈 Vue + Vue-router + axios
 
 调用 网易云 接口
@@ -10,4 +12,5 @@
 
 > `npm run dev` 开启服务  
 > `npm run build` 构建页面
+
 
