@@ -1,13 +1,16 @@
 import axios from 'axios';
 import Vue from 'vue';
 
+
+const ROOT = "http://api.ncgame.cc/music/";
+
 var HTTP = axios.create({
   timeout: 1000,
   responseType: 'json',
+  baseURL: ROOT
 });
 
 HTTP.interceptors.request.use(function (config) {
-  
   //在发送请求之前做某事
   console.log("拦截")
   console.log(config)  //单次请求的配置信息对象

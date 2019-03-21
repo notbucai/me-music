@@ -1,31 +1,45 @@
 <template>
   <div id="playlist">
     <header class="app-header">
-      <h1 class="music_title">恋爱循环</h1>
+      <h1 class="music_title">{{currentMusic.title}} - [{{currentMusic.author}}]</h1>
       <MusicPlayer
         v-bind:cAngle="cAngle"
         v-bind:musicTimeShow="musicTimeShow"
+        v-bind:currentMusic="currentMusic"
         v-on:changeAngle="handleUpdateCurrentLen"
         v-on:play="handleAudioPlay"
         v-on:pause="handleAudioPause"
         v-bind:oldStart="oldStart"
       />
-      <PlayAction v-on:play="handlePlay" v-bind:cStatus="cStatus"/>
+      <PlayAction
+        v-on:play="handlePlay"
+        v-bind:cStatus="cStatus"
+        v-on:showlist="handleShowList"
+        v-on:next="handleNextMusic"
+        v-on:last="handleLastMusic"
+      />
     </header>
     <main class="app-main">
-      <CommentList/>
+      <CommentList :hotComments="hotComments"/>
     </main>
 
     <audio
-      src="https://bucai-blog.oss-cn-beijing.aliyuncs.com/1.mp3"
+      v-bind:src="currentMusic.url"
       controls="controls"
       :ref="audio_ref"
-      preload="auto"
       v-on:play="handlePlayEvent"
       v-on:pause="handlePauseEvent"
+      v-on:ended="handleEndedEvent"
       v-on:durationchange="handleMusicLoad"
     ></audio>
-    <MusicList/>
+
+    <MusicList
+      v-if="showList"
+      v-on:showlist="handleShowList"
+      v-bind:musicList="musicList"
+      v-bind:currentMusic="currentMusic.id"
+      v-on:switchMusic="handleSwitchMusic"
+    />
   </div>
 </template>
 
@@ -36,13 +50,28 @@ import MusicPlayer from "./components/musicPlayer.vue";
 import PlayAction from "./components/playAction.vue";
 import MusicList from "./components/musicList.vue";
 
-
 export default {
   name: "PlayList",
   mounted() {
     document.body.addEventListener("touchstart", () => {});
-    this.handleAudioPlay("audio");
-    this.handleAudioPause("audio");
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.handleAudioPlay("audio");
+        this.handleAudioPause("audio");
+      }, 0);
+    });
+  },
+  async created() {
+    const id = this.$route.params.id;
+
+    try {
+      const [res] = await this.$get("playlist?id=" + id);
+
+      this.musicList = res.data.Body || [];
+      this.currentMusic = this.musicList[0];
+    } catch (error) {
+      console.log(error);
+    }
   },
   components: {
     CommentList,
@@ -59,7 +88,11 @@ export default {
       update_timer: null,
       cStatus: false,
       oldStart: false,
-      audio_ref: "audio"
+      audio_ref: "audio",
+      showList: false,
+      currentMusic: {},
+      musicList: [],
+      hotComments: []
     };
   },
 
@@ -81,6 +114,16 @@ export default {
     cLen: function() {
       // 监听当前已播放的长度
       this.cAngle = (360 / this.tLen) * this.cLen;
+    },
+    async currentMusic() {
+      setTimeout(() => {
+        this.handleAudioPlay();
+      }, 0);
+      const [res] = await this.$get(
+        "hotComments?id=" + this.currentMusic.id
+      );
+      const { data } = res;
+      this.hotComments = data.hotComments || [];
     }
   },
   methods: {
@@ -99,32 +142,33 @@ export default {
 
     handleAudioPlay() {
       const el = this.$refs[this.audio_ref];
-
       // 指定前的状态 handleAudioPause 同样
       this.oldStart = el.paused;
-
       el.play();
     },
 
     handleAudioPause() {
       const el = this.$refs[this.audio_ref];
       this.oldStart = el.paused;
-
       el.pause();
     },
 
     handleMusicLoad(event) {
       this.tLen = event.target.duration;
     },
-
+    handleShowList() {
+      this.showList = !this.showList;
+    },
     handlePlayEvent(event) {
       this.tLen = event.target.duration;
       this.cStatus = true;
-
       this.handleRenderPalyer(event.target);
     },
     handlePauseEvent(event) {
       this.cStatus = false;
+    },
+    handleEndedEvent() {
+      this.handleNextMusic();
     },
     handleRenderPalyer(target) {
       // 获取当前已播放的长度
@@ -158,6 +202,36 @@ export default {
         const el = this.$refs[this.audio_ref];
         el.currentTime = this.cLen;
       }, 10);
+    },
+
+    handleSwitchMusic(music_id) {
+      this.handleAudioPause();
+
+      setTimeout(() => {
+        const current = this.musicList.find(item => item.id == music_id);
+        if (current) {
+          this.currentMusic = current;
+        }
+      }, 0);
+    },
+    handleNextMusic() {
+      this.handleAudioPause();
+      const music_id = this.currentMusic.id;
+
+      let index = this.musicList.findIndex(item => item.id == music_id) + 1;
+      if (index >= this.musicList.length) {
+        index = 0;
+      }
+      this.currentMusic = this.musicList[index];
+    },
+    handleLastMusic() {
+      const music_id = this.currentMusic.id;
+      this.handleAudioPause();
+      let index = this.musicList.findIndex(item => item.id == music_id) - 1;
+      if (index < 0) {
+        index = this.musicList.length - 1;
+      }
+      this.currentMusic = this.musicList[index];
     }
   }
 };

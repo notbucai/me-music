@@ -26,20 +26,27 @@
     <div class="music_player-bg"></div>
     <div class="music_player-time">{{musicTimeShow}}</div>
     <div class="music_player-cover">
-      <img src="../../../assets/img/t_cover.jpeg" alt>
+      <img :src="currentMusic.pic||c_img" alt>
     </div>
   </main>
 </template>
 
 <script>
 import domUtil from "~/util/domUtil";
+import c_img from "../../../assets/img/t_cover.jpeg";
 
 export default {
   name: "MusicPlayer",
   props: {
     cAngle: Number,
     musicTimeShow: String,
-    oldStart: Boolean
+    oldStart: Boolean,
+    currentMusic: Object
+  },
+  data() {
+    return {
+      c_img: c_img
+    };
   },
   methods: {
     handleTouchKey() {

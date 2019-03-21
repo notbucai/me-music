@@ -7,6 +7,10 @@ import PlayList from './routes/playlist/playlist.vue';
 
 const routes = [
   {
+    path: '/',
+    redirect: "/playlist/2714253021"
+  },
+  {
     path: '/playlist/:id',
     component: PlayList
   }

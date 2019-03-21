@@ -3,17 +3,20 @@
     <button class="music_action-action music_action-way">
       <i class="iconfont">&#xe61d;</i>
     </button>
-    <button class="music_action-action music_action-Last">
+    <button class="music_action-action music_action-Last" v-on:click="handleAction('last')">
       <i class="iconfont">&#xe61e;</i>
     </button>
     <button class="music_action-action music_action-payl" v-on:click="handleAction('audio')">
       <i class="iconfont" v-if="cStatus">&#xe61c;</i>
       <i class="iconfont" v-else>&#xe621;</i>
     </button>
-    <button class="music_action-action music_action-next">
+    <button class="music_action-action music_action-next" v-on:click="handleAction('next')">
       <i class="iconfont">&#xe61f;</i>
     </button>
-    <button class="music_action-action music_action-list">
+    <button
+      class="music_action-action music_action-list"
+      v-on:click="handleAction('showlist')"
+    >
       <i class="iconfont">&#xe61b;</i>
     </button>
   </section>
@@ -27,7 +30,20 @@ export default {
   },
   methods: {
     handleAction(key) {
-      this.$emit("play");
+      switch (key) {
+        case "audio":
+          this.$emit("play");
+          break;
+        case "showlist":
+          this.$emit("showlist");
+          break;
+        case "last":
+          this.$emit("last");
+          break;
+        case "next":
+          this.$emit("next");
+          break;
+      }
     }
   }
 };
