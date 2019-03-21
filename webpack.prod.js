@@ -1,6 +1,7 @@
 
 const common = require('./webpack.common');
 const merge = require('webpack-merge');
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(common, {
@@ -31,10 +32,18 @@ module.exports = merge(common, {
         ],
       },
       {
-        test: /\.(jpg|gif|svg|png)$/,
+        test: /\.(jpg|gif|svg|png|jpeg)$/,
         use: [
           'url-loader?limit=4096&name=images/[hash:8].[name].[ext]',
         ],
+      },
+      {
+        test: /\.js$/,
+        include: [
+          path.resolve(__dirname, 'src')
+        ],
+        exclude: /(node_modules|bower_components)/,
+        loader: "babel-loader",
       }
     ]
   },
