@@ -24,6 +24,14 @@ module.exports = merge(common, {
           },
           'css-loader',
           {
+            loader: 'px2rem-loader',
+            // options here
+            options: {
+              remUnit: 65,
+              remPrecision: 6,
+            }
+          },
+          {
             loader: 'sass-loader',
             options: {
               // indentedSyntax: true
