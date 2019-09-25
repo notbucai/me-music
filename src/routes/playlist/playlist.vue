@@ -20,7 +20,7 @@
       />
     </header>
     <main class="app-main">
-      <CommentList :hotComments="hotComments"/>
+      <CommentList :hotComments="hotComments" />
     </main>
 
     <audio
@@ -44,20 +44,20 @@
 </template>
 
 <script>
-import domUtil from "~/util/domUtil";
-import CommentList from "./components/commentList.vue";
-import MusicPlayer from "./components/musicPlayer.vue";
-import PlayAction from "./components/playAction.vue";
-import MusicList from "./components/musicList.vue";
+import domUtil from '~/util/domUtil';
+import CommentList from './components/commentList.vue';
+import MusicPlayer from './components/musicPlayer.vue';
+import PlayAction from './components/playAction.vue';
+import MusicList from './components/musicList.vue';
 
 export default {
-  name: "PlayList",
+  name: 'PlayList',
   mounted() {
-    document.body.addEventListener("touchstart", () => {});
+    document.body.addEventListener('touchstart', () => {});
     this.$nextTick(() => {
       setTimeout(() => {
-        this.handleAudioPlay("audio");
-        this.handleAudioPause("audio");
+        this.handleAudioPlay('audio');
+        this.handleAudioPause('audio');
       }, 0);
     });
   },
@@ -65,7 +65,7 @@ export default {
     const id = this.$route.params.id;
 
     try {
-      const [res] = await this.$get("playlist?id=" + id);
+      const [res] = await this.$get('playlist?id=' + id);
 
       this.musicList = res.data.Body || [];
       this.currentMusic = this.musicList[0];
@@ -81,17 +81,25 @@ export default {
   },
   data() {
     return {
+      // 总时长
       tLen: 423,
+      // 当前播放时间
       cLen: 0,
+      // 当前角度
       cAngle: 0,
-      c_timer: null,
-      update_timer: null,
+      // 当前播放的状态
       cStatus: false,
+      // 之前的状态
       oldStart: false,
-      audio_ref: "audio",
+      // 音乐标签的dom-name
+      audio_ref: 'audio',
+      // 是否展开播放列表
       showList: false,
+      // 当前播放的音频的数据
       currentMusic: {},
+      // 播放列表
       musicList: [],
+      // 热评列表
       hotComments: []
     };
   },
@@ -101,11 +109,11 @@ export default {
       const { cLen, tLen } = this;
       return (
         Math.floor(cLen / 60) +
-        ":" +
+        ':' +
         String(Math.floor(cLen % 60)).padStart(2, 0) +
-        "/" +
+        '/' +
         Math.floor(tLen / 60) +
-        ":" +
+        ':' +
         String(Math.floor(tLen % 60)).padStart(2, 0)
       );
     }
@@ -115,13 +123,12 @@ export default {
       // 监听当前已播放的长度
       this.cAngle = (360 / this.tLen) * this.cLen;
     },
+    // 监听音频对象的改变
     async currentMusic() {
       setTimeout(() => {
         this.handleAudioPlay();
       }, 0);
-      const [res] = await this.$get(
-        "hotComments?id=" + this.currentMusic.id
-      );
+      const [res] = await this.$get('hotComments?id=' + this.currentMusic.id);
       const { data } = res;
       this.hotComments = data.hotComments || [];
     }
@@ -132,48 +139,56 @@ export default {
      * ref 播放器的ref字符串
      */
     handlePlay() {
-      //  是否暂停 暂停就播放
+      //  是否暂停 暂停就继续播放
       if (!this.cStatus) {
         this.handleAudioPlay();
       } else {
         this.handleAudioPause();
       }
     },
-
+    // 播放
     handleAudioPlay() {
       const el = this.$refs[this.audio_ref];
       // 指定前的状态 handleAudioPause 同样
       this.oldStart = el.paused;
       el.play();
     },
-
+    // 音频继续播放
     handleAudioPause() {
       const el = this.$refs[this.audio_ref];
       this.oldStart = el.paused;
       el.pause();
     },
-
+    // 当音乐加载成功触发
     handleMusicLoad(event) {
       this.tLen = event.target.duration;
     },
+    // 切换列表显示
     handleShowList() {
       this.showList = !this.showList;
     },
+    // 当开始播放事件触发后执行这个回调函数
     handlePlayEvent(event) {
       this.tLen = event.target.duration;
       this.cStatus = true;
+      // 然后执行传入音频对象
       this.handleRenderPalyer(event.target);
     },
+    // 当暂停后事件
     handlePauseEvent(event) {
       this.cStatus = false;
     },
+    // 当结束后事件
     handleEndedEvent() {
+      // 播放下一首
       this.handleNextMusic();
     },
+    // 递归获取当前播放时间
+    // 用于实时更新当前播放时长
+    // target 是一个
     handleRenderPalyer(target) {
       // 获取当前已播放的长度
       this.cLen = target.currentTime;
-
       // 未暂停，就循环更新
       if (!target.paused) {
         // 刷新
@@ -185,10 +200,10 @@ export default {
 
     // 更新 角度
     handleUpdateCurrentLen(angle) {
-      clearTimeout(this.update_timer);
+      clearTimeout(this.handleUpdateCurrentLen.update_timer);
 
       // 加入防抖机制
-      this.update_timer = setTimeout(() => {
+      this.handleUpdateCurrentLen.update_timer = setTimeout(() => {
         // 防止直接从开头拖动到结尾或者 直接结尾到开头 提升体验
         if (this.cAngle <= 90 && angle > 180) {
           // this.cAngle = 0;
@@ -203,7 +218,7 @@ export default {
         el.currentTime = this.cLen;
       }, 10);
     },
-
+    // 点击切换英语
     handleSwitchMusic(music_id) {
       this.handleAudioPause();
 
@@ -214,6 +229,7 @@ export default {
         }
       }, 0);
     },
+    // 切换下一首
     handleNextMusic() {
       this.handleAudioPause();
       const music_id = this.currentMusic.id;
@@ -224,6 +240,7 @@ export default {
       }
       this.currentMusic = this.musicList[index];
     },
+    // 切换上一首
     handleLastMusic() {
       const music_id = this.currentMusic.id;
       this.handleAudioPause();
