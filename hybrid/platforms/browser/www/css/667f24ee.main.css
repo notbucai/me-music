@@ -1,0 +1,431 @@
+#app[data-v-5ef48958] {
+  min-height: 30.769231rem;
+  background: #a18cd1;
+}
+.commentList h3[data-v-7fd0a956] {
+  color: rgba(255,255,255,0.692);
+  margin-top: 0.307692rem;
+  padding: 0.153846rem 0.307692rem;
+  border-left: 0.123077rem solid #f5b1e4d7;
+}
+.comment-item[data-v-7fd0a956] {
+  padding: 0.307692rem;
+  font-size: 0.307692rem;
+  margin-left: 0.123077rem;
+  color: rgba(245,177,228,0.3);
+  text-indent: 0.615385rem;
+  line-height: 0.553846rem;
+  border-bottom: 0.015385rem dashed #f0c2e49c;
+}
+.comment-item[data-v-7fd0a956]:last-child {
+  border-bottom: none;
+}
+.comment-item[data-v-7fd0a956]:nth-of-type(1) {
+  color: #f5b1e4;
+}
+.comment-item[data-v-7fd0a956]:nth-of-type(2) {
+  color: rgba(245,177,228,0.7);
+}
+.comment-item[data-v-7fd0a956]:nth-of-type(3) {
+  color: rgba(245,177,228,0.533333);
+}
+.comment-item[data-v-7fd0a956]:nth-of-type(4) {
+  color: rgba(245,177,228,0.45);
+}
+.comment-item[data-v-7fd0a956]:nth-of-type(5) {
+  color: rgba(245,177,228,0.4);
+}
+.music_player[data-v-557c589e] {
+  position: relative;
+  width: 6.923077rem;
+  height: 6.923077rem;
+  margin: 0.923077rem auto;
+  transition: all 0.8s;
+}
+.music_player-needle[data-v-557c589e] {
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: 0;
+  transform: rotate(0);
+  transition: transform 0.2s;
+}
+.music_player-needle-key[data-v-557c589e] {
+  position: absolute;
+  top: -3.569231rem;
+  left: 0;
+  margin-left: -0.230769rem;
+  width: 0.461538rem;
+  height: 0.338462rem;
+  background-color: #fff;
+  border-radius: 16%;
+  overflow: hidden;
+  box-shadow: 0 0 0.123077rem #a18cd1;
+}
+.music_player-needle-key img[data-v-557c589e] {
+  width: 100%;
+  height: 100%;
+}
+.music_player-progres .progres[data-v-557c589e] {
+  position: absolute;
+  box-sizing: border-box;
+}
+.music_player-progres .progres-total[data-v-557c589e] {
+  border: 0.153846rem solid #f1e8ff42;
+  position: absolute;
+  z-index: 40;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+}
+.music_player-progres .progres-mask_l[data-v-557c589e],
+.music_player-progres .progres-mask_r[data-v-557c589e],
+.music_player-progres .progres-semicircle_l[data-v-557c589e],
+.music_player-progres .progres-semicircle_r[data-v-557c589e] {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.music_player-progres .progres-semicircle_l[data-v-557c589e],
+.music_player-progres .progres-semicircle_r[data-v-557c589e] {
+  z-index: 20;
+  border: 0.153846rem solid #a18cd1;
+}
+.music_player-progres .progres-semicircle_l[data-v-557c589e] {
+  left: 0;
+  z-index: 10;
+  border-right: none;
+  border-radius: 3.461538rem 0 0 3.461538rem;
+}
+.music_player-progres .progres-semicircle_r[data-v-557c589e] {
+  right: 0;
+  z-index: 15;
+  border-left: none;
+  border-radius: 0 3.461538rem 3.461538rem 0;
+}
+.music_player-progres .progres-mask_l[data-v-557c589e],
+.music_player-progres .progres-mask_r[data-v-557c589e] {
+  transition: transform 0.4s;
+  transform: rotate(0);
+  border: 0.153846rem solid #fff;
+}
+.music_player-progres .progres-mask_l[data-v-557c589e] {
+  z-index: 12;
+  left: 0;
+  transform-origin: right;
+  border-right: none;
+  border-radius: 3.461538rem 0 0 3.461538rem;
+}
+.music_player-progres .progres-mask_r[data-v-557c589e] {
+  z-index: 20;
+  right: 0;
+  transform-origin: left;
+  border-left: none;
+  border-radius: 0 3.461538rem 3.461538rem 0;
+}
+.music_player-bg[data-v-557c589e] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+  box-sizing: border-box;
+  padding: 0.307692rem;
+  background-color: rgba(255,255,255,0.644);
+  box-shadow: 0 0 0.123077rem #fbc2eb;
+}
+.music_player-time[data-v-557c589e] {
+  position: relative;
+  z-index: 100;
+  top: 5.384615rem;
+  text-align: center;
+  display: inline-block;
+  line-height: 0.430769rem;
+  padding: 0 0.246154rem;
+  padding-top: 0.030769rem;
+  text-align: center;
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 0.307692rem;
+  font-size: 0.276923rem;
+  color: rgba(255,255,255,0.815);
+}
+.music_player-cover[data-v-557c589e] {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.music_player-cover img[data-v-557c589e] {
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+}
+.music_action[data-v-1395e482] {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.153846rem;
+}
+.music_action-action[data-v-1395e482] {
+  position: relative;
+  border: none;
+  outline: none;
+  width: 1.384615rem;
+  margin: 0 0.153846rem;
+  padding: 0.123077rem;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 0.615385rem;
+  background-color: transparent;
+  transition: all 2s;
+  overflow: hidden;
+}
+.music_action-action[data-v-1395e482]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: all 2s;
+  background-color: rgba(84,0,117,0.1);
+  opacity: 0;
+}
+.music_action-action[data-v-1395e482]:active::after {
+  opacity: 1;
+  transition: 0s;
+}
+.music_action-action[data-v-1395e482]:focus {
+  outline: none;
+}
+.music_action-action .iconfont[data-v-1395e482] {
+  font-size: 0.615385rem;
+  color: rgba(26,0,86,0.71);
+}
+#musicList[data-v-48a3ed1b] {
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.2);
+}
+#musicList .listMain[data-v-48a3ed1b] {
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  box-shadow: 0 -0.030769rem 0.061538rem #888;
+}
+#musicList .listMain .scrollMain[data-v-48a3ed1b] {
+  overflow-y: auto;
+  height: 9.230769rem;
+}
+#musicList .listMain .scrollMain ul[data-v-48a3ed1b] {
+  padding: 0.153846rem;
+}
+#musicList .listMain .scrollMain ul li[data-v-48a3ed1b] {
+  border-bottom: 0.015385rem solid #f0f0f0;
+  padding: 0.307692rem;
+  font-size: 0.369231rem;
+  position: relative;
+}
+#musicList .listMain .scrollMain ul li.currentMusic[data-v-48a3ed1b] {
+  background-color: #f0f0f0;
+}
+#musicList .listMain .scrollMain ul li span[data-v-48a3ed1b] {
+  position: absolute;
+  right: 0.307692rem;
+  font-size: 0.307692rem;
+  color: #999;
+}
+#musicList .listMain header[data-v-48a3ed1b] {
+  font-size: 0.4rem;
+  padding: 0.307692rem;
+  border-bottom: 0.015385rem solid #f0f0f0;
+  box-shadow: 0 0.030769rem 0.030769rem #eee;
+}
+audio[data-v-d8ee087a] {
+  position: absolute;
+  bottom: 0;
+  display: none;
+}
+.app-header[data-v-d8ee087a] {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 0.615385rem;
+  background-color: #fba5ea;
+  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 120%);
+}
+.music_title[data-v-d8ee087a] {
+  background: #a18cd157;
+  padding: 0.4rem;
+  text-align: center;
+  color: #a18cd1;
+  font-size: 0.430769rem;
+  letter-spacing: 0.061538rem;
+  text-shadow: 0 0 0.184615rem #ccaef7;
+}
+.app-main[data-v-d8ee087a] {
+  position: relative;
+  width: 100%;
+  margin-top: 0.615385rem;
+  box-sizing: border-box;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 0.246154rem;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'iconfont';
+  src: url("https://at.alicdn.com/t/font_1086463_hgh1xka8l16.eot");
+  src: url("https://at.alicdn.com/t/font_1086463_hgh1xka8l16.eot?#iefix") format("embedded-opentype"),url("https://at.alicdn.com/t/font_1086463_hgh1xka8l16.woff2") format("woff2"),url("https://at.alicdn.com/t/font_1086463_hgh1xka8l16.woff") format("woff"),url("https://at.alicdn.com/t/font_1086463_hgh1xka8l16.ttf") format("truetype"),url("https://at.alicdn.com/t/font_1086463_hgh1xka8l16.svg#iconfont") format("svg");
+}

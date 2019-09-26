@@ -2,7 +2,8 @@ import axios from 'axios';
 import Vue from 'vue';
 
 
-const ROOT = "http://music_api.ncgame.cc/";
+// const ROOT = "http://music_api.ncgame.cc/";
+const ROOT = "http://127.0.0.1:9870/";
 
 var HTTP = axios.create({
   timeout: 1000,
@@ -12,7 +13,7 @@ var HTTP = axios.create({
 
 HTTP.interceptors.request.use(function (config) {
   //在发送请求之前做某事
-  console.log("拦截")
+  console.log("request")
   console.log(config)  //单次请求的配置信息对象
   return config;  //只有return config后，才能成功发送请求
 }, function (error) {

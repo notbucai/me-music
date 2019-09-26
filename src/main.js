@@ -11,10 +11,15 @@ const isDebug_mode = process.env.NODE_ENV !== 'production';
 Vue.config.debug = isDebug_mode;
 Vue.config.devtools = isDebug_mode;
 Vue.config.productionTip = isDebug_mode;
+const VConsole = require('vconsole');
+const vconsole = new VConsole();
 
-new Vue({
-  el: "#app",
-  router,
-  render: h => h(App),
-  // render(h) { return h(App) } 
-});
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+  new Vue({
+    el: "#app",
+    router,
+    render: h => h(App),
+    // render(h) { return h(App) } 
+  });
+}
