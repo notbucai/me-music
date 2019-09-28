@@ -60,7 +60,6 @@ export default {
 
     try {
       const [res] = await this.$get('playlist?id=' + id);
-
       this.musicList = res.data.Body || [];
       this.currentMusic = this.musicList[0];
     } catch (error) {
@@ -129,6 +128,7 @@ export default {
       this.initMedia();
       const [res] = await this.$get('hotComments?id=' + this.currentMusic.id);
       const { data } = res;
+      console.log(data);
       this.hotComments = data.hotComments || [];
     }
   },
@@ -158,6 +158,9 @@ export default {
             case 3:
               this.mediaObj.paused = true;
               this.handlePauseEvent();
+              break;
+            case 4:
+              this.handleEndedEvent();
               break;
             default:
               break;

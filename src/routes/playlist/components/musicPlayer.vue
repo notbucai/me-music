@@ -45,7 +45,8 @@ export default {
   },
   data() {
     return {
-      c_img: c_img
+      c_img: c_img,
+
     };
   },
   methods: {

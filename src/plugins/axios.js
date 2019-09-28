@@ -2,8 +2,7 @@ import axios from 'axios';
 import Vue from 'vue';
 
 
-// const ROOT = "http://music_api.ncgame.cc/";
-const ROOT = "http://127.0.0.1:9870/";
+const ROOT = "http://music_api.ncgame.cc/";
 
 var HTTP = axios.create({
   timeout: 1000,
@@ -49,3 +48,4 @@ const $post = async function (url, data) {
 
 Vue.prototype.$get = $get;
 Vue.prototype.$post = $post;
+Vue.prototype.$http = HTTP;

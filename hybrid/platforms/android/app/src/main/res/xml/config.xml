@@ -12,12 +12,12 @@
     <feature name="Media">
         <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
     </feature>
-    <name>Music</name>
+    <name>Music-Bucai</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        不才的音乐app
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="1450941858@qq.com" href="http://blog.ncgame.cc">
+        bucai
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -25,8 +25,10 @@
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
+    <allow-navigation href="*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="res/icon.png" />
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
