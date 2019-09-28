@@ -23,7 +23,7 @@
       <CommentList :hotComments="hotComments" />
     </main>
 
-    <audio
+    <!-- <audio
       v-bind:src="currentMusic.url"
       controls="controls"
       :ref="audio_ref"
@@ -31,7 +31,7 @@
       v-on:pause="handlePauseEvent"
       v-on:ended="handleEndedEvent"
       v-on:durationchange="handleMusicLoad"
-    ></audio>
+    ></audio>-->
 
     <MusicList
       v-if="showList"
@@ -54,24 +54,22 @@ export default {
   name: 'PlayList',
   mounted() {
     document.body.addEventListener('touchstart', () => {});
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.handleAudioPlay('audio');
-        this.handleAudioPause('audio');
-      }, 0);
-    });
   },
   async created() {
     const id = this.$route.params.id;
 
     try {
       const [res] = await this.$get('playlist?id=' + id);
-
       this.musicList = res.data.Body || [];
       this.currentMusic = this.musicList[0];
     } catch (error) {
+      this.currentMusic = {
+        id: 123,
+        url: 'cdvfile://localhost/persistent/1.mp3'
+      };
       console.log(error);
     }
+    console.log(this.currentMusic);
   },
   components: {
     CommentList,
@@ -100,7 +98,9 @@ export default {
       // 播放列表
       musicList: [],
       // 热评列表
-      hotComments: []
+      hotComments: [],
+      // 音频对象
+      mediaObj: null
     };
   },
 
@@ -125,20 +125,57 @@ export default {
     },
     // 监听音频对象的改变
     async currentMusic() {
-      setTimeout(() => {
-        this.handleAudioPlay();
-      }, 0);
+      this.initMedia();
       const [res] = await this.$get('hotComments?id=' + this.currentMusic.id);
       const { data } = res;
+      console.log(data);
       this.hotComments = data.hotComments || [];
     }
   },
   methods: {
+    initMedia() {
+      const { url } = this.currentMusic;
+      console.log('url=>', url);
+
+      this.mediaObj = new Media(
+        url,
+        (...args) => {
+          console.log('success', args);
+        },
+        error => {
+          console.log('error=> ', error);
+        },
+        mediaStatus => {
+          console.log('mediaStatus=>' + mediaStatus);
+
+          switch (mediaStatus) {
+            case 1:
+              break;
+            case 2:
+              this.mediaObj.paused = false;
+              this.handlePlayEvent();
+              break;
+            case 3:
+              this.mediaObj.paused = true;
+              this.handlePauseEvent();
+              break;
+            case 4:
+              this.handleEndedEvent();
+              break;
+            default:
+              break;
+          }
+        }
+      );
+      this.mediaObj.play();
+    },
     /**
      * 播放or暂停
      * ref 播放器的ref字符串
      */
     handlePlay() {
+      console.log(this.cStatus);
+
       //  是否暂停 暂停就继续播放
       if (!this.cStatus) {
         this.handleAudioPlay();
@@ -148,34 +185,40 @@ export default {
     },
     // 播放
     handleAudioPlay() {
-      const el = this.$refs[this.audio_ref];
+      const el = this.mediaObj;
       // 指定前的状态 handleAudioPause 同样
       this.oldStart = el.paused;
       el.play();
     },
-    // 音频继续播放
+    // 音频暂停播放
     handleAudioPause() {
-      const el = this.$refs[this.audio_ref];
+      const el = this.mediaObj;
       this.oldStart = el.paused;
       el.pause();
     },
     // 当音乐加载成功触发
-    handleMusicLoad(event) {
-      this.tLen = event.target.duration;
+    handleMusicLoad() {
+      const timerIndex = setInterval(() => {
+        const duration = this.mediaObj.getDuration();
+        if (duration > 0) {
+          clearInterval(timerIndex);
+          this.tLen = this.mediaObj.getDuration();
+        }
+      }, 100);
     },
     // 切换列表显示
     handleShowList() {
       this.showList = !this.showList;
     },
     // 当开始播放事件触发后执行这个回调函数
-    handlePlayEvent(event) {
-      this.tLen = event.target.duration;
+    handlePlayEvent() {
+      this.handleMusicLoad();
       this.cStatus = true;
       // 然后执行传入音频对象
-      this.handleRenderPalyer(event.target);
+      this.handleRenderPalyer();
     },
     // 当暂停后事件
-    handlePauseEvent(event) {
+    handlePauseEvent() {
       this.cStatus = false;
     },
     // 当结束后事件
@@ -186,14 +229,21 @@ export default {
     // 递归获取当前播放时间
     // 用于实时更新当前播放时长
     // target 是一个
-    handleRenderPalyer(target) {
+    handleRenderPalyer() {
       // 获取当前已播放的长度
-      this.cLen = target.currentTime;
+      this.mediaObj.getCurrentPosition(
+        postion => {
+          this.cLen = postion;
+        },
+        error => {
+          console.error(error);
+        }
+      );
       // 未暂停，就循环更新
-      if (!target.paused) {
+      if (!this.mediaObj.paused) {
         // 刷新
         window.requestAnimationFrame(() => {
-          this.handleRenderPalyer(target);
+          this.handleRenderPalyer();
         });
       }
     },
@@ -214,8 +264,8 @@ export default {
           this.cLen = angle * (this.tLen / 360);
         }
         // 更新音乐进度
-        const el = this.$refs[this.audio_ref];
-        el.currentTime = this.cLen;
+        const el = this.mediaObj;
+        el.seekTo(this.cLen * 1000);
       }, 10);
     },
     // 点击切换英语

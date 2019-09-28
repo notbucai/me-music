@@ -1,0 +1,17 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Music-Bucai",
+  "short_name": "Music-Bucai",
+  "version": "cc.ncgame.music",
+  "description": "不才的音乐app",
+  "author": "bucai",
+  "icons": [
+    {
+      "src": "res/icon.png",
+      "type": "image/png",
+      "sizes": "undefinedxundefined"
+    }
+  ],
+  "start_url": "index.html"
+}

@@ -1,15 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: ['@babel/polyfill', './src/main.js'],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'hybrid/www'),
     filename: 'js/[name].[hash:6].build.js',
-    publicPath: "/"
+    publicPath: ""
   },
   optimization: {
     splitChunks: {

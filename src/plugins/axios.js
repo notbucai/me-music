@@ -12,7 +12,7 @@ var HTTP = axios.create({
 
 HTTP.interceptors.request.use(function (config) {
   //在发送请求之前做某事
-  console.log("拦截")
+  console.log("request")
   console.log(config)  //单次请求的配置信息对象
   return config;  //只有return config后，才能成功发送请求
 }, function (error) {
@@ -48,3 +48,4 @@ const $post = async function (url, data) {
 
 Vue.prototype.$get = $get;
 Vue.prototype.$post = $post;
+Vue.prototype.$http = HTTP;
